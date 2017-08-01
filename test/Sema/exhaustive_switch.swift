@@ -678,6 +678,28 @@ func checkLiterals() {
   case 230: break
   default: break
   }
+  
+  // No Diagnostics
+  switch int {
+  case 1, -1: break
+  case 2, -2: break
+  case 11, -11: break
+  default: break
+  }
+  
+  switch int {
+  case -1: break // expected-note {{first occurrence of identical literal pattern is here}}
+  case -2: break // expected-note 2 {{first occurrence of identical literal pattern is here}}
+  case -3: break
+  case -17: break // expected-note {{first occurrence of identical literal pattern is here}}
+  case -4: break
+  case -2: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  case -001: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  case -5: break
+  case -0x11: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  case -0b10: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  default: break
+  }
 
   // No Diagnostics
   switch dbl {
@@ -733,6 +755,28 @@ func checkLiterals() {
   case 00001: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
   case 123453: break
   case 2.50505000000: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  default: break
+  }
+  
+  // No Diagnostics
+  switch dbl {
+  case 1.2345, -1.2345: break
+  case 2.654, -2.654: break
+  case 11.123, -11.123: break
+  default: break
+  }
+  
+  switch dbl {
+  case -1: break
+  case -1.5: break // expected-note 2 {{first occurrence of identical literal pattern is here}}
+  case -2.5: break
+  case -3.5: break // expected-note {{first occurrence of identical literal pattern is here}}
+  case -5.3132: break
+  case -1.500: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  case -46.2395: break
+  case -1.5000: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  case -0003.50000: break // expected-warning {{literal value is already handled by previous pattern; consider removing it}}
+  case -23452.43: break
   default: break
   }
 }
