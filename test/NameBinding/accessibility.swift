@@ -51,6 +51,8 @@ Foo.c() // expected-error {{'c' is inaccessible due to 'private' protection leve
 
 _ = Foo() // expected-error {{'Foo' initializer is inaccessible due to 'internal' protection level}}
 
+_ = ImplicitFoo(a: 5) // expected-error {{'ImplicitFoo' implicit initializer is inaccessible due to 'internal' protection level}}
+
 // <rdar://problem/27982012> QoI: Poor diagnostic for inaccessible initializer
 struct rdar27982012 {
   var x: Int

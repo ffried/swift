@@ -14,6 +14,10 @@ public struct Foo {
   private static func z() {}
 }
 
+public struct ImplicitFoo {
+  public let a: Int
+}
+
 open class Base {
   internal func method() {}
   open internal(set) var value = 0
